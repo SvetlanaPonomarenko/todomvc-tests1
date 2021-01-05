@@ -2,7 +2,7 @@ from selene.support.conditions import have
 from selene.support.shared import browser
 
 
-def test_todos():
+def test_common_tasks_management():
     browser.open('http://todomvc4tasj.herokuapp.com/')
     browser.should(have.js_returned(True, 'return Object.keys(require.s.contexts._.defined).length === 39;'))
 
