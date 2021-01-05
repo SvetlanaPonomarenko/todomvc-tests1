@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "todomvc_todos_management"
+name = "todomvc-tests"
 version = "0.1.0"
 description = ""
 authors = ["SvetlanaPonomarenko <lana25185@gmail.com>"]

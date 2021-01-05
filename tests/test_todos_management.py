@@ -14,16 +14,18 @@ def test_todos():
 
     # Edit
     browser.all('#todo-list>li').element_by(have.exact_text('b')).double_click()
-    browser.all('#todo-list>li').element_by(have.css_class('editing')).element('.edit').type(' new').press_enter()
+    browser.all('#todo-list>li').element_by(have.css_class('editing')).element('.edit').\
+        type(' edited').press_enter()
 
     # Complete&Clear
-    browser.all('#todo-list>li').element_by(have.exact_text('b new')).element('.toggle').click()
+    browser.all('#todo-list>li').element_by(have.exact_text('b edited')).element('.toggle').click()
     browser.element('#clear-completed').click()
     browser.all('#todo-list>li').should(have.exact_texts('a', 'c'))
 
     # Cancel edit
     browser.all('#todo-list>li').element_by(have.exact_text('c')).double_click()
-    browser.all('#todo-list>li').element_by(have.css_class('editing')).element('.edit').type(' new').press_escape()
+    browser.all('#todo-list>li').element_by(have.css_class('editing')).element('.edit').\
+        type(' to be canceled').press_escape()
 
     # Delete
     browser.all('#todo-list>li').element_by(have.exact_text('c')).hover().element('.destroy').click()
