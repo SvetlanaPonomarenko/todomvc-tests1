@@ -1,20 +1,22 @@
-from selene.support.conditions import have
+from selene.support.shared import browser
 from todomvc_tests.pages import todomvc
-from todomvc_tests.pages.todomvc import scroll
 
 
 def test_common_todos():
+    browser.config.set_value_by_js = True
+
     todomvc.visit()
 
-    todomvc.enter('a', 'b', 'c')
-    todomvc.check()
+    todomvc.add('a', 'b', 'c')
+    todomvc.should_have('a', 'b', 'c')
 
-    todomvc.edit_b(' edited')
+    todomvc.edit('b', 'b edited')
 
-    todomvc.complete_b_clear()
-    scroll.should(have.exact_texts('a', 'c'))
+    todomvc.toggle('b edited')
+    todomvc.clear_completed()
+    todomvc.should_have('a', 'c')
 
-    todomvc.cancel_edit_c(' to be canceled')
+    todomvc.cancel_editing('c', ' to be canceled')
 
-    todomvc.delete_c()
-    scroll.should(have.exact_texts('a'))
+    todomvc.delete('c')
+    todomvc.should_have('a')
