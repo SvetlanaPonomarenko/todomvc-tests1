@@ -1,22 +1,27 @@
 from selene.support.shared import browser
-from todomvc_tests.pages import todomvc
+
+from todomvc_tests.model import app
+browser.config.set_value_by_js = True
 
 
-def test_common_todos():
-    browser.config.set_value_by_js = True
+def test_add():
+    app.TodoMvc.visit_at_all().add('a', 'b').should_have('a', 'b')
 
-    todomvc.visit()
 
-    todomvc.add('a', 'b', 'c')
-    todomvc.should_have('a', 'b', 'c')
+def test_edit():
+    app.TodoMvc.visit_at_all().add('b').\
+        edit('b', 'b edited').should_have('b edited')
 
-    todomvc.edit('b', 'b edited')
 
-    todomvc.toggle('b edited')
-    todomvc.clear_completed()
-    todomvc.should_have('a', 'c')
+def test_complete_clear():
+    app.TodoMvc.visit_at_all().add('b').toggle('b').\
+        clear_completed().should_be_empty()
 
-    todomvc.cancel_editing('c', ' to be canceled')
 
-    todomvc.delete('c')
-    todomvc.should_have('a')
+def test_cancel_edit():
+    app.TodoMvc.visit_at_all().add('c').\
+        cancel_editing('c', ' to be canceled').should_have('c')
+
+
+def test_delete():
+    app.TodoMvc.visit_at_all().add('a').delete('a').should_be_empty()
