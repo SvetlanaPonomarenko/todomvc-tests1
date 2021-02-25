@@ -1,27 +1,22 @@
 from selene.support.shared import browser
-
-from todomvc_tests.model import app
-browser.config.set_value_by_js = True
+from todomvc_tests.model.todomvc_page import TodoMvcPage
 
 
-def test_add():
-    app.TodoMvc.visit_at_all().add('a', 'b').should_have('a', 'b')
+def test_common_todos():
+    browser.config.set_value_by_js = True
 
+    TodoMvcPage().visit()
 
-def test_edit():
-    app.TodoMvc.visit_at_all().add('b').\
-        edit('b', 'b edited').should_have('b edited')
+    TodoMvcPage().add('a', 'b', 'c')
+    TodoMvcPage().should_have('a', 'b', 'c')
 
+    TodoMvcPage().edit('b', 'b edited')
 
-def test_complete_clear():
-    app.TodoMvc.visit_at_all().add('b').toggle('b').\
-        clear_completed().should_be_empty()
+    TodoMvcPage().toggle('b edited')
+    TodoMvcPage().clear_completed()
+    TodoMvcPage().should_have('a', 'c')
 
+    TodoMvcPage().cancel_editing('c', ' to be canceled')
 
-def test_cancel_edit():
-    app.TodoMvc.visit_at_all().add('c').\
-        cancel_editing('c', ' to be canceled').should_have('c')
-
-
-def test_delete():
-    app.TodoMvc.visit_at_all().add('a').delete('a').should_be_empty()
+    TodoMvcPage().delete('c')
+    TodoMvcPage().should_have('a')
