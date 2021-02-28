@@ -1,7 +1,4 @@
-from selene.support.shared import browser
 from todomvc_tests.model import todomvc
-
-browser.config.set_value_by_js = True
 
 
 def test_add_first_one():
@@ -30,8 +27,8 @@ def test_add_many():
 
 def test_edit():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.edit('b', 'b edited')
 
     todomvc.should_have('a', 'b edited', 'c')
@@ -40,8 +37,8 @@ def test_edit():
 
 def test_edit_by_focus_change():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.edit_by_focus_change('b', 'b edited')
 
     todomvc.should_have('a', 'b edited', 'c')
@@ -50,8 +47,8 @@ def test_edit_by_focus_change():
 
 def test_cancel_editing():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.cancel_editing('c', ' to be canceled')
 
     todomvc.should_have('a', 'b', 'c')
@@ -60,8 +57,8 @@ def test_cancel_editing():
 
 def test_complete():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.toggle('b')
 
     todomvc.should_have_completed('b')
@@ -71,9 +68,9 @@ def test_complete():
 
 def test_activate():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
     todomvc.toggle('b')
+
     todomvc.toggle('b')
 
     todomvc.should_have_active('a', 'b', 'c')
@@ -83,8 +80,8 @@ def test_activate():
 
 def test_complete_all():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.toggle_all()
 
     todomvc.should_have_active()
@@ -94,9 +91,9 @@ def test_complete_all():
 
 def test_activate_all():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
     todomvc.toggle_all()
+
     todomvc.toggle_all()
 
     todomvc.should_have_completed()
@@ -106,10 +103,10 @@ def test_activate_all():
 
 def test_clear_completed():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
     todomvc.toggle('a')
     todomvc.toggle('c')
+
     todomvc.clear_completed()
 
     todomvc.should_have('b')
@@ -118,8 +115,8 @@ def test_clear_completed():
 
 def test_delete():
     todomvc.visit()
-
     todomvc.add('a', 'b', 'c')
+
     todomvc.delete('b')
 
     todomvc.should_have('a', 'c')
