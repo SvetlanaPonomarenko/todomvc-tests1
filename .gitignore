@@ -1,5 +1,10 @@
 .venv
 .idea
+.pytest_cache
 tests/.pytest_cache
 tests/__pycache__
 todomvc-tests/__pycache__
+reports/
+.pyc
+config.local.env
+*.log

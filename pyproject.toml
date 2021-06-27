@@ -7,9 +7,13 @@ authors = ["SvetlanaPonomarenko <lana25185@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.8"
 selene = {version = "^1.0.2", allow-prereleases = true}
+pydantic = "^1.8.1"
+pytest = "^6.2.2"
+python-dotenv = "^0.15.0"
+pytest-xdist = "^2.2.1"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^6.2.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
